@@ -7,7 +7,7 @@ import https from "https";
 import path from "path";
 import { fileSaver } from "uploaded-file-saver";
 import { appConfig } from "./2-utils/app-config";
-import { productController } from "./5-controllers/task-controller";
+import { taskController } from "./5-controllers/task-controller";
 import { userController } from "./5-controllers/user-controller";
 import { errorsMiddleware } from "./6-middleware/errors-middleware";
 import { securityMiddleware } from "./6-middleware/security-middleware";
@@ -41,7 +41,7 @@ server.use(expressFileUpload());
 server.use(securityMiddleware.preventXssAttack);
 
 // Register routes:
-server.use("/api", productController.router, userController.router);
+server.use("/api", taskController.router, userController.router);
 
 // Register route not found middleware: 
 server.use("*", errorsMiddleware.routeNotFound);

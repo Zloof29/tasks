@@ -60,7 +60,7 @@ class TaskController {
         try {
             const id = +request.params.id;
             await taskService.deleteTask(id);
-            response.status(StatusCode.NoContent);
+            response.status(StatusCode.NoContent).send();
         } catch (error: any) {
             next(error);
         }
