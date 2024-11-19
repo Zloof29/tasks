@@ -1,12 +1,12 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import "./Routing.css";
 import { Home } from "../../HomeArea/Home/Home";
-import { ProductList } from "../../ProductArea/ProductList/ProductList";
 import { About } from "../../AboutArea/About/About";
 import { Page404 } from "../Page404/Page404";
-import { AddProduct } from "../../ProductArea/AddProduct/AddProduct";
 import { Register } from "../../UserArea/Register/Register";
 import { Login } from "../../UserArea/Login/Login";
+import { TaskList } from "../../TaskArea/TaskList/TaskList";
+import { AddTask } from "../../TaskArea/AddTask/AddTask";
 
 export function Routing(): JSX.Element {
     return (
@@ -15,8 +15,8 @@ export function Routing(): JSX.Element {
 
                 <Route path="/" element={<Navigate to="/home" />} />
                 <Route path="/home" element={<Home />} />
-                <Route path="/products" element={<ProductList />} />
-                <Route path="/new-product" element={<AddProduct />} />
+                <Route path="/tasks" element={<TaskList />} />
+                <Route path="/new-task" element={<AddTask />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
