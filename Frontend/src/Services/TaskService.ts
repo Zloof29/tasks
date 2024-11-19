@@ -52,6 +52,13 @@ class TaskService {
 
         return updatedTask;
     }
+
+    public async deleteTasks(id: number): Promise<void> {
+        await axios.delete<TaskModel>(appConfig.deleteTask + id);
+
+        const action = taskActions.deleteTasks(id);
+        store.dispatch(action);
+    }
 }
 
 export const taskService = new TaskService();
