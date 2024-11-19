@@ -14,7 +14,7 @@ class TaskService {
 }
 
     public async getOneTask(id: number) {
-        const sql = "SELECT * FROM task WHERE = id = ?";
+        const sql = "SELECT * FROM tasks WHERE id = ?";
 
         const tasks = await dal.execute(sql, [id]);
 
@@ -70,6 +70,8 @@ class TaskService {
         const info: OkPacketParams = await dal.execute(sql, [id]);
 
         if (info.affectedRows === 0) throw new ResourceNotFoundError(id);
+
+        return;
     }
 }
 
