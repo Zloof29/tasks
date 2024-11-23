@@ -2,6 +2,7 @@ import { OkPacketParams } from "mysql2";
 import { dal } from "../2-utils/dal";
 import { ResourceNotFoundError } from "../3-models/client-error";
 import { TaskModel } from "../3-models/task-model";
+import moment from "moment";
 
 class TaskService {
 
@@ -26,14 +27,16 @@ class TaskService {
     }
 
     public async addTask(task: TaskModel): Promise<TaskModel> {
-        const sql = "INSERT INTO tasks(title, description, status, created, updated, userId) VALUES(?, ?, ?, ?, ?, ?)";
+        const sql = "INSERT INTO tasks(title, description, created, updated, userId) VALUES(?, ?, ?, ?, ?)";
+
+        const created = moment(task.created).format('YYYY-MM-DD HH:mm:ss');
+        const updated = task.updated ? moment(task.updated).format('YYYY-MM-DD HH:mm:ss') : null;
 
         const values = [
             task.title,
             task.description,
-            task.status,
-            task.created,
-            task.updated,
+            created,
+            updated,
             task.userId
         ]
 
@@ -45,12 +48,11 @@ class TaskService {
     }
 
     public async updateTask(task: TaskModel): Promise<TaskModel> {
-        const sql = "UPDATE tasks set title = ?, description = ?, status = ?, updated = ? WHERE id = ?";
+        const sql = "UPDATE tasks set title = ?, description = ?, updated = ? WHERE id = ?";
 
         const values = [
             task.title,
             task.description,
-            task.status,
             task.updated,
             task.id
         ];

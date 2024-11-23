@@ -10,7 +10,7 @@ class TaskController {
     public constructor() {
         this.router.get("/tasks", this.getAllTasks);
         this.router.get("/tasks/:id([0-9]+)", this.getOneTask);
-        this.router.post("/tasks", this.addTask);
+        this.router.post("/tasks/:userId", this.addTask);
         this.router.put("/tasks/:id([0-9]+)", this.updateTask);
         this.router.delete("/tasks/:id([0-9]+)", this.deleteTask);
     }
@@ -36,6 +36,8 @@ class TaskController {
 
     private async addTask(request: Request, response: Response, next: NextFunction) {
         try {
+            const userId = request.params.userId;
+            request.body = userId;
             const task = new TaskModel(request.body);
             const addedTask = await taskService.addTask(task);
             response.status(StatusCode.Created).json(addedTask);
