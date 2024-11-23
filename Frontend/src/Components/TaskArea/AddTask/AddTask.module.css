@@ -1,0 +1,15 @@
+.form {
+    width: 300px;
+    margin: 10px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px gray;
+    border: 1px solid black;
+    text-align: left;
+}
+
+.form > .TextField, .form > .button {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}

@@ -29,8 +29,8 @@ class TaskService {
         return task;
     }
 
-    public async addTask(task: TaskModel): Promise<TaskModel> {
-        const response = await axios.post(appConfig.addTask, task);
+    public async addTask(userId: number, task: TaskModel): Promise<TaskModel> {
+        const response = await axios.post(appConfig.addTask + userId, task);
 
         const addedTask = response.data;
 
