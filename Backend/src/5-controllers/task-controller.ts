@@ -37,9 +37,9 @@ class TaskController {
     private async addTask(request: Request, response: Response, next: NextFunction) {
         try {
             const userId = request.params.userId;
-            request.body = userId;
+            request.body.userId = userId;
             const task = new TaskModel(request.body);
-            const addedTask = await taskService.addTask(task);
+            const addedTask = await taskService.addTask(task, userId);
             response.status(StatusCode.Created).json(addedTask);
         } catch (error: any) {
             next(error);

@@ -3,6 +3,5 @@ export class TaskModel {
     public title: string;
     public description: string;
     public created: string;
-    public updated: Date;
     public userId: number;
 }

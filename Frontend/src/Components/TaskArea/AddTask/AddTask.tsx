@@ -29,7 +29,6 @@ export function AddTask(): JSX.Element {
         try {
             await taskService.addTask(userId, task);
             notify.success("Task has been added.");
-            
             navigate("/tasks");
           } catch (error) {
           console.log(userId);
