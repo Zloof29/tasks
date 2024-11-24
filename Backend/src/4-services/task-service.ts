@@ -26,18 +26,16 @@ class TaskService {
         return task;
     }
 
-    public async addTask(task: TaskModel): Promise<TaskModel> {
-        const sql = "INSERT INTO tasks(title, description, created, updated, userId) VALUES(?, ?, ?, ?, ?)";
+    public async addTask(task: TaskModel, userId): Promise<TaskModel> {
+        const sql = "INSERT INTO tasks(title, description, created, userId) VALUES(?, ?, ?, ?)";
 
         const created = moment(task.created).format('YYYY-MM-DD HH:mm:ss');
-        const updated = task.updated ? moment(task.updated).format('YYYY-MM-DD HH:mm:ss') : null;
 
         const values = [
             task.title,
             task.description,
             created,
-            updated,
-            task.userId
+            userId
         ]
 
         const info: OkPacketParams = await dal.execute(sql, values);
@@ -48,12 +46,11 @@ class TaskService {
     }
 
     public async updateTask(task: TaskModel): Promise<TaskModel> {
-        const sql = "UPDATE tasks set title = ?, description = ?, updated = ? WHERE id = ?";
+        const sql = "UPDATE tasks set title = ?, description = ? WHERE id = ?";
 
         const values = [
             task.title,
             task.description,
-            task.updated,
             task.id
         ];
 
