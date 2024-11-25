@@ -5,7 +5,7 @@ export function Header(): JSX.Element {
     return (
         <div className="Header">
             <UserMenu />
-			<h1>Northwind Traders</h1>
+			<h1>Task manager</h1>
         </div>
     );
 }

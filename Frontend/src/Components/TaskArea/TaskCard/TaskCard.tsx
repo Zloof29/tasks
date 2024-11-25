@@ -1,45 +1,54 @@
-import "./TaskCard.css";
+import css from "./TaskCard.module.css";
+import { TaskModel } from "../../../Models/TaskModel";
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
+import { format } from 'date-fns';
 
+type TaskCardProps = {
+  task: TaskModel;
+}
 
-const bull = (
-    <Box
-      component="span"
-      sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-    >
-      •
-    </Box>
-  );
-  
+export function TaskCard(props: TaskCardProps): JSX.Element {
 
-export function TaskCard(): JSX.Element {
+  const formatedDate = format(new Date(props.task.created), 'MM/dd/yyyy');
 
     return (
-        <Card sx={{ minWidth: 275 }}>
-        <CardContent>
-          <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
-            Word of the Day
+      <div className={css.Container}>
+      <Card variant="outlined" sx={{ width: 360, backgroundColor: 'transparent', m: 1, borderColor: "black", boxShadow: 5}}>
+      <Box sx={{ p: 2}}>
+        <Stack
+          direction="row"
+          sx={{ justifyContent: 'space-between', alignItems: 'center' }}
+        >
+          <Typography gutterBottom variant="h6" component="div">
+            {props.task.title}
           </Typography>
-          <Typography variant="h5" component="div">
-            be{bull}nev{bull}o{bull}lent
+          <Box sx={{ mx: 2 }} />
+          <Typography gutterBottom variant="h6" component="div">
+            {formatedDate}
           </Typography>
-          <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>adjective</Typography>
-          <Typography variant="body2">
-            well meaning and kindly.
-            <br />
-            {'"a benevolent smile"'}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small">Learn More</Button>
-        </CardActions>
-      </Card>
-  
+        </Stack>
+        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          {props.task.description}
+        </Typography>
+      </Box>
+      <Divider />
+      <Box sx={{ p: 2 }}>
+        <Typography gutterBottom variant="body2">
+          Select action:
+        </Typography>
+        <Stack direction="row" spacing={2} className={css.Button}>
+        <Button variant="text" sx={{ color: "red" }}>Delete</Button>
+        <Button variant="text">Edit</Button>
+        </Stack>
+      </Box>
+    </Card>
+      </div>
+
     )
 }

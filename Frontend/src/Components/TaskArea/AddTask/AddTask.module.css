@@ -8,7 +8,16 @@
     text-align: left;
 }
 
-.form > .TextField, .form > .button {
+.Button {
+    background-color: transparent;
+    border: 1px solid gray;
+}
+
+.Button:active {
+    font-size: medium;
+}
+
+.form > .TextField, .form > button {
     width: 100%;
     box-sizing: border-box;
     margin-bottom: 20px;
