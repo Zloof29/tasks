@@ -6,8 +6,6 @@ import { notify } from "../../../Utils/notify";
 import css from "./AddTask.module.css";
 import { useForm } from "react-hook-form";
 import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { AppState } from "../../../Redux/store";
@@ -59,10 +57,7 @@ export function AddTask(): JSX.Element {
 
         <input type="hidden" {...register("created")} />
 
-
-        {/* <Stack spacing={2} direction="row"> */}
-      <button className={css.button}>ADD</button>
-        {/* </Stack> */}
+        <button className={css.Button}>ADD</button>
 
         </form>
 

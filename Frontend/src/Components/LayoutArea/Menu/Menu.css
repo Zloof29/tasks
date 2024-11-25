@@ -1,13 +1,18 @@
 .Menu {
 	display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
     padding-top: 20px;
     gap: 20px;
 }
 
 .Menu .active {
-    color: green;
+    color: black;
     font-weight: bold;
     font-family: Arial;
 }
 
+.Menu a {
+    text-decoration: none;
+    color: black;
+}
