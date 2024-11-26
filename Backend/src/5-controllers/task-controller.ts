@@ -8,7 +8,7 @@ class TaskController {
     public readonly router = express.Router();
 
     public constructor() {
-        this.router.get("/tasks", this.getAllTasks);
+        this.router.get("/tasks/:userId([0-9]+)", this.getAllTasks);
         this.router.get("/tasks/:id([0-9]+)", this.getOneTask);
         this.router.post("/tasks/:userId", this.addTask);
         this.router.put("/tasks/:id([0-9]+)", this.updateTask);
@@ -17,7 +17,8 @@ class TaskController {
 
     private async getAllTasks(request: Request, response: Response, next: NextFunction) {
         try {
-            const tasks = await taskService.getAllTasks();
+            const userId = +request.params.userId;
+            const tasks = await taskService.getAllTasks(userId);
             response.json(tasks);
         } catch (error: any) {
             next(error);

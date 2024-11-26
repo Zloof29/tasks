@@ -1,6 +1,5 @@
 import css from "./TaskCard.module.css";
 import { TaskModel } from "../../../Models/TaskModel";
-import * as React from 'react';
 import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -8,6 +7,13 @@ import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import { format } from 'date-fns';
+import { taskService } from "../../../Services/TaskService";
+import { useSelector } from "react-redux";
+import { AppState, store, taskActions } from "../../../Redux/store";
+import { notify } from "../../../Utils/notify";
+import { errorHandler } from "../../../Utils/ErrorHandler";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 type TaskCardProps = {
   task: TaskModel;
@@ -15,7 +21,20 @@ type TaskCardProps = {
 
 export function TaskCard(props: TaskCardProps): JSX.Element {
 
-  const formatedDate = format(new Date(props.task.created), 'MM/dd/yyyy');
+  const formatedDate = format(new Date(props.task.created), 'dd/MM/yyyy');
+
+  const taskId = useSelector<AppState, number | undefined>((state) => state.tasks.find((t) => t.id === props.task.id)?.id);
+
+  const handleDeleteButton = async () => {
+    try {
+      await taskService.deleteTasks(taskId);
+      notify.success("Task has been deleted.");
+      const action = taskActions.deleteTasks(taskId);
+      store.dispatch(action);
+    } catch (error: any) {
+      notify.error(errorHandler.getError(error));
+    }
+  }
 
     return (
       <div className={css.Container}>
@@ -43,7 +62,7 @@ export function TaskCard(props: TaskCardProps): JSX.Element {
           Select action:
         </Typography>
         <Stack direction="row" spacing={2} className={css.Button}>
-        <Button variant="text" sx={{ color: "red" }}>Delete</Button>
+        <Button variant="text" sx={{ color: "red" }} onClick={handleDeleteButton}>Delete</Button>
         <Button variant="text">Edit</Button>
         </Stack>
       </Box>

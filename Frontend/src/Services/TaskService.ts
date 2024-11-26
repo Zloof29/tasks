@@ -4,11 +4,11 @@ import { appConfig } from "../Utils/AppConfig";
 import { store, taskActions } from "../Redux/store";
 
 class TaskService {
-    public async getAllTask(): Promise<TaskModel[]> {
+    public async getAllTask(userId: number): Promise<TaskModel[]> {
 
         if (store.getState().tasks) return store.getState().tasks;
 
-        const response = await axios.get<TaskModel[]>(appConfig.getTasks);
+        const response = await axios.get<TaskModel[]>(appConfig.getTasks + userId);
         
         const tasks = response.data;
 
@@ -29,7 +29,7 @@ class TaskService {
         return task;
     }
 
-    public async addTask(userId: number, task: TaskModel): Promise<TaskModel> {
+    public async addTask(task: TaskModel, userId: number): Promise<TaskModel> {
         const response = await axios.post(appConfig.addTask + userId, task);
 
         const addedTask = response.data;
