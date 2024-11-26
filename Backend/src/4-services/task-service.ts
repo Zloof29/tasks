@@ -6,10 +6,10 @@ import moment from "moment";
 
 class TaskService {
 
-    public async getAllTasks() {
-        const sql = "SELECT * FROM tasks";
+    public async getAllTasks(userId: number) {
+        const sql = "SELECT * FROM tasks WHERE userId = ?";
 
-        const tasks = await dal.execute(sql);
+        const tasks = await dal.execute(sql, [userId]);
 
         return tasks;
 }

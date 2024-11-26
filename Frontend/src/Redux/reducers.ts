@@ -10,7 +10,8 @@ export function initTasks(currentState: TaskModel[], action: PayloadAction<TaskM
 }
 
 export function addTasks(currentState: TaskModel[], action: PayloadAction<TaskModel>) {
-    const newState: TaskModel = action.payload;
+    const newState: TaskModel[] = [...currentState];
+    newState.push(action.payload);
     return newState;
 }
 
@@ -21,8 +22,7 @@ export function updateTasks(currentState: TaskModel[], action: PayloadAction<Tas
 }
 
 export function deleteTasks(currentState: TaskModel[], action: PayloadAction<number>) {
-    const taskIdToDelete = action.payload;
-    const newState = currentState.filter(task => task.id !== taskIdToDelete);
+    const newState = currentState.filter((task) => task.id !== action.payload);
     return newState;
 }
 

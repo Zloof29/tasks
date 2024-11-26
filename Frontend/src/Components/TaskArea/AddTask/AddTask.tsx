@@ -25,11 +25,10 @@ export function AddTask(): JSX.Element {
 
     async function send(task: TaskModel) {
         try {
-            await taskService.addTask(userId, task);
+            await taskService.addTask(task, userId);
             notify.success("Task has been added.");
             navigate("/tasks");
           } catch (error) {
-          console.log(userId);
             notify.error(errorHandler.getError(error));
         }
     }
