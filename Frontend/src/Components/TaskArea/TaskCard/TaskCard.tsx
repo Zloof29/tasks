@@ -14,6 +14,7 @@ import { notify } from "../../../Utils/notify";
 import { errorHandler } from "../../../Utils/ErrorHandler";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 type TaskCardProps = {
   task: TaskModel;
@@ -25,12 +26,23 @@ export function TaskCard(props: TaskCardProps): JSX.Element {
 
   const taskId = useSelector<AppState, number | undefined>((state) => state.tasks.find((t) => t.id === props.task.id)?.id);
 
+  const navigate = useNavigate();
+
   const handleDeleteButton = async () => {
     try {
       await taskService.deleteTasks(taskId);
       notify.success("Task has been deleted.");
       const action = taskActions.deleteTasks(taskId);
       store.dispatch(action);
+    } catch (error: any) {
+      notify.error(errorHandler.getError(error));
+    }
+  }
+
+  const handleEditButton = async () => {
+    try {
+      // I need to send the user to other page
+      navigate(`/editTask/${taskId}`);
     } catch (error: any) {
       notify.error(errorHandler.getError(error));
     }
@@ -63,7 +75,7 @@ export function TaskCard(props: TaskCardProps): JSX.Element {
         </Typography>
         <Stack direction="row" spacing={2} className={css.Button}>
         <Button variant="text" sx={{ color: "red" }} onClick={handleDeleteButton}>Delete</Button>
-        <Button variant="text">Edit</Button>
+        <Button variant="text" onClick={handleEditButton}>Edit</Button>
         </Stack>
       </Box>
     </Card>
