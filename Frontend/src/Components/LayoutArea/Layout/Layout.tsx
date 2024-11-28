@@ -2,21 +2,21 @@ import { Footer } from "../Footer/Footer";
 import { Header } from "../Header/Header";
 import { Menu } from "../Menu/Menu";
 import { Routing } from "../Routing/Routing";
-import "./Layout.css";
+import css from "./Layout.module.css";
 
 export function Layout(): JSX.Element {
     return (
-        <div className="Layout">
-			<header>
+        <div className={css.Layout}>
+			<header className={css.Header}>
                 <Header />
             </header>
-            <aside>
+            <aside className={css.Aside}>
                 <Menu />
             </aside>
-            <main>
+            <main className={css.Main}>
                 <Routing />
             </main>
-            <footer>
+            <footer className={css.Footer}>
                 <Footer />
             </footer>
         </div>

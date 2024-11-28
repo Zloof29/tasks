@@ -11,8 +11,6 @@ import { useDispatch } from "react-redux";
 
 export function TaskList(): JSX.Element {
 
-    // const [tasks, setTasks] = useState<TaskModel[]>([]);
-
     const tasks = useSelector<AppState, TaskModel[]>(state => state.tasks) || [];
 
     const userId = useSelector<AppState, number>((state) => state.user.id);
