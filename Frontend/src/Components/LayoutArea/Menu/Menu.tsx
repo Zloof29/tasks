@@ -1,15 +1,15 @@
 import { NavLink } from "react-router-dom";
-import "./Menu.css";
+import css from "./Menu.module.css";
 
 export function Menu(): JSX.Element {
     return (
         
-        <div className="Menu">
+        <div className={css.Menu}>
 
-            <NavLink to="/home">Home</NavLink>
-            <NavLink to="/tasks">Tasks</NavLink>
-            <NavLink to="/new-task">Add Task</NavLink>
-            <NavLink to="/about">About</NavLink>
+            <NavLink to="/home" className={({isActive}) => isActive ? css.active : undefined}>Home</NavLink>
+            <NavLink to="/tasks" className={({isActive}) => isActive ? css.active : undefined}>Tasks</NavLink>
+            <NavLink to="/new-task" className={({isActive}) => isActive ? css.active : undefined}>Add Task</NavLink>
+            <NavLink to="/about" className={({isActive}) => isActive ? css.active : undefined}>About</NavLink>
 
         </div>
     );

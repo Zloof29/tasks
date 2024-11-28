@@ -6,13 +6,13 @@
     gap: 20px;
 }
 
-.Menu .active {
+.active {
     color: black;
     font-weight: bold;
     font-family: Arial;
 }
 
-.Menu a {
+a {
     text-decoration: none;
     color: black;
 }
