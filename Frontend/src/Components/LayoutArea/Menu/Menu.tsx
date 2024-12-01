@@ -6,10 +6,8 @@ export function Menu(): JSX.Element {
         
         <div className={css.Menu}>
 
-            <NavLink to="/home" className={({isActive}) => isActive ? css.active : undefined}>Home</NavLink>
             <NavLink to="/tasks" className={({isActive}) => isActive ? css.active : undefined}>Tasks</NavLink>
             <NavLink to="/new-task" className={({isActive}) => isActive ? css.active : undefined}>Add Task</NavLink>
-            <NavLink to="/about" className={({isActive}) => isActive ? css.active : undefined}>About</NavLink>
 
         </div>
     );

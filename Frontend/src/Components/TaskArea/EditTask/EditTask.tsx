@@ -8,6 +8,7 @@ import { taskService } from "../../../Services/TaskService";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { AppState } from "../../../Redux/store";
+import { Box, Button, ButtonGroup, Stack } from "@mui/material";
 
 export function EditTask(): JSX.Element {
     const {register, handleSubmit, reset, setValue} = useForm<TaskModel>();
@@ -47,6 +48,14 @@ export function EditTask(): JSX.Element {
         }
     }
 
+    function handleCancelButton () {
+        try {
+            navigate("/tasks");
+        } catch (error: any) {
+            notify.error(errorHandler.getError(error));
+        }
+    }
+
     return (
         <div className={css.editTask}>
             <form onSubmit={handleSubmit(send)}>
@@ -57,8 +66,14 @@ export function EditTask(): JSX.Element {
                 <label>Description: </label>
                 <input type="text" {...register("description")} required />
 
-                <button type="submit">Update</button>
-                <button type="button" onClick={handleResetButton}>Clear</button>
+                <Box display={"flex"} justifyContent={"center"}>
+                <Stack direction="row" spacing={2} justifyContent={"center"}>
+                <Button type="submit">Update</Button>
+                <Button type="button" onClick={handleResetButton}>Clear</Button>
+                <Button type="button" onClick={handleCancelButton}>cancel</Button>
+                </Stack>
+
+                </Box>
 
             </form>
         </div>
