@@ -5,22 +5,27 @@ import { useNavigate, useParams } from "react-router-dom";
 import { notify } from "../../../Utils/notify";
 import { errorHandler } from "../../../Utils/ErrorHandler";
 import { taskService } from "../../../Services/TaskService";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { AppState } from "../../../Redux/store";
-import { useEffect } from "react";
 
-type EditTaskProps = {
-    task: TaskModel;
-}
-
-export function EditTask(props: EditTaskProps): JSX.Element {
-    const {register, handleSubmit, reset} = useForm<TaskModel>();
+export function EditTask(): JSX.Element {
+    const {register, handleSubmit, reset, setValue} = useForm<TaskModel>();
 
     const navigate = useNavigate();
 
     const {taskId} = useParams();
 
-    // const taskId = useSelector<AppState, number>((state) => state.tasks.find((t) => t.id === props.task.id)?.id); 
+    const task = useSelector<AppState, TaskModel | undefined>((state) =>
+        state.tasks ? state.tasks.find((t) => t.id === +taskId) : undefined
+    );
+
+    useEffect(() => {
+        if (task) {
+            setValue("title", task.title);
+            setValue("description", task.description);
+        }
+    }, [task, setValue])
 
     async function send(task: TaskModel) {
         try {

@@ -32,7 +32,7 @@ export function Routing(): JSX.Element {
                 <Route path="/tasks" element={<TaskList />} />
                 <Route path="/new-task" element={<AddTask />} />
                 <Route path="/about" element={<About />} />
-                <Route path="/editTask/:taskId" element={<EditTask task={task} />} />
+                <Route path="/editTask/:taskId" element={<EditTask />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="*" element={<Page404 />} />
