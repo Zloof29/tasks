@@ -9,6 +9,7 @@ import TextField from '@mui/material/TextField';
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { AppState } from "../../../Redux/store";
+import { Box, Stack, Button } from "@mui/material";
 
 export function AddTask(): JSX.Element {
 
@@ -19,7 +20,6 @@ export function AddTask(): JSX.Element {
     const userId = useSelector<AppState, number>((state) => state.user.id);
 
     useEffect(() => {
-        // Set the current date and time when the component mounts
         setValue('created', new Date().toISOString());
       }, [setValue]);
 
@@ -31,6 +31,14 @@ export function AddTask(): JSX.Element {
           } catch (error) {
             notify.error(errorHandler.getError(error));
         }
+    }
+
+    function handleCancelButton() {
+      try {
+        navigate("/tasks");
+      } catch (error: any) {
+        notify.error(errorHandler.getError(error));
+      }
     }
 
     return (
@@ -56,10 +64,13 @@ export function AddTask(): JSX.Element {
 
         <input type="hidden" {...register("created")} />
 
-        <button className={css.Button}>ADD</button>
-
+        <Box display={"flex"} justifyContent={"center"}>
+                <Stack direction="row" spacing={2} justifyContent={"center"}>
+                  <Button type="submit">ADD</Button>
+                  <Button onClick={handleCancelButton}>Cancel</Button>
+                </Stack>
+                </Box>
         </form>
-
         </div>
     );
 }
