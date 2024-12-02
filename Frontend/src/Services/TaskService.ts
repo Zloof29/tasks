@@ -4,61 +4,77 @@ import { appConfig } from "../Utils/AppConfig";
 import { store, taskActions } from "../Redux/store";
 
 class TaskService {
-    public async getAllTask(userId: number): Promise<TaskModel[]> {
+  public async getAllTask(userId: number): Promise<TaskModel[]> {
+    if (store.getState().tasks) return store.getState().tasks;
 
-        if (store.getState().tasks) return store.getState().tasks;
+    const response = await axios.get<TaskModel[]>(appConfig.getTasks + userId);
 
-        const response = await axios.get<TaskModel[]>(appConfig.getTasks + userId);
-        
-        const tasks = response.data;
+    const tasks = response.data;
 
-        const action = taskActions.initTasks(tasks);
-        store.dispatch(action);
+    const action = taskActions.initTasks(tasks);
+    store.dispatch(action);
 
-        return tasks;   
-    }
+    return tasks;
+  }
 
-    public async getOneTask(id: number): Promise<TaskModel> {
-        const response = await axios.get<TaskModel>(appConfig.getTask + id);
+  public async getOneTask(id: number): Promise<TaskModel> {
+    const response = await axios.get<TaskModel>(appConfig.getTask + id);
 
-        const task = response.data;
+    const task = response.data;
 
-        const action = taskActions.updateTasks(task);
-        store.dispatch(action);
+    const action = taskActions.updateTasks(task);
+    store.dispatch(action);
 
-        return task;
-    }
+    return task;
+  }
 
-    public async addTask(task: TaskModel, userId: number): Promise<TaskModel> {
-        const response = await axios.post(appConfig.addTask + userId, task);
+  public async addTask(task: TaskModel, userId: number): Promise<TaskModel> {
+    const response = await axios.post(appConfig.addTask + userId, task);
 
-        const addedTask = response.data;
+    const addedTask = response.data;
 
-        if(!store.getState().tasks) return;
+    if (!store.getState().tasks) return;
 
-        const action = taskActions.addTasks(addedTask);
-        store.dispatch(action);
+    const action = taskActions.addTasks(addedTask);
+    store.dispatch(action);
 
-        return addedTask;
-    }
+    return addedTask;
+  }
 
-    public async updateTask(id: number, task: TaskModel): Promise<TaskModel> {
-        const response = await axios.put(appConfig.UpdateTask + id, task);
+  public async updateTask(id: number, task: TaskModel): Promise<TaskModel> {
+    const response = await axios.put(appConfig.UpdateTask + id, task);
 
-        const updatedTask = response.data;
+    const updatedTask = response.data;
 
-        const action = taskActions.updateTasks(updatedTask);
-        store.dispatch(action);
+    const action = taskActions.updateTasks(updatedTask);
+    store.dispatch(action);
 
-        return updatedTask;
-    }
+    return updatedTask;
+  }
 
-    public async deleteTasks(id: number): Promise<void> {
-        await axios.delete<TaskModel>(appConfig.deleteTask + id);
+  public async updateTaskCompleted(
+    id: number,
+    completed: string
+  ): Promise<TaskModel> {
+    const response = await axios.put(
+      `${appConfig.UpdateTaskToComplete}${id}/complete`,
+      { completed }
+    );
 
-        const action = taskActions.deleteTasks(id);
-        store.dispatch(action);
-    }
+    const updatedCompleted = response.data;
+
+    const action = taskActions.updateTasks(updatedCompleted);
+    store.dispatch(action);
+
+    return updatedCompleted;
+  }
+
+  public async deleteTasks(id: number): Promise<void> {
+    await axios.delete<TaskModel>(appConfig.deleteTask + id);
+
+    const action = taskActions.deleteTasks(id);
+    store.dispatch(action);
+  }
 }
 
 export const taskService = new TaskService();

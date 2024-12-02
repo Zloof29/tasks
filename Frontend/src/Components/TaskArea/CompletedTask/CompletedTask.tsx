@@ -1,8 +1,10 @@
 import { useSelector } from "react-redux";
-import css from "./CompleatedTask.module.css";
+import css from "./CompletedTask.module.css";
 import { AppState } from "../../../Redux/store";
 import { TaskCard } from "../TaskCard/TaskCard";
 import { createSelector } from "reselect";
+import { useEffect } from "react";
+import { taskService } from "../../../Services/TaskService";
 
 // Memoized selector
 const selectCompletedTasks = createSelector(
@@ -10,12 +12,17 @@ const selectCompletedTasks = createSelector(
   (tasks) => (tasks ? tasks.filter((task) => task.completed === "true") : [])
 );
 
-export function CompleatedTask(): JSX.Element {
+export function CompletedTask(): JSX.Element {
+  const completedTasks = useSelector(selectCompletedTasks);
 
-    const completedTasks = useSelector(selectCompletedTasks);
+  const userId = useSelector<AppState, number>((state) => state.user.id);
+
+  useEffect(() => {
+    taskService.getAllTask(userId);
+  }, [userId]);
 
   return (
-    <div className={css.CompleatedTas}>
+    <div className={css.CompletedTask}>
       {completedTasks.length > 0 ? (
         completedTasks.map((task) => <TaskCard key={task.id} task={task} />)
       ) : (

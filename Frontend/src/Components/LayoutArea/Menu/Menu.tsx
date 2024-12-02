@@ -5,16 +5,16 @@ export function Menu(): JSX.Element {
   return (
     <div className={css.Menu}>
       <NavLink
-        to="/tasks"
+        to="/IncompleteTasks"
         className={({ isActive }) => (isActive ? css.active : undefined)}
       >
-        Tasks
+        Incomplete Tasks
       </NavLink>
       <NavLink
         to="/CompletedTasks"
         className={({ isActive }) => (isActive ? css.active : undefined)}
       >
-        Compleated Tasks
+        Completed Tasks
       </NavLink>
       <NavLink
         to="/new-task"

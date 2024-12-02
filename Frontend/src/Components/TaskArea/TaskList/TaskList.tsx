@@ -1,31 +1,30 @@
-import { useEffect, useState } from "react";
-import css from "./TaskList.module.css";
-import { taskService } from "../../../Services/TaskService";
-import { TaskModel } from "../../../Models/TaskModel";
-import { notify } from "../../../Utils/notify";
-import { errorHandler } from "../../../Utils/ErrorHandler";
 import { TaskCard } from "../TaskCard/TaskCard";
 import { useSelector } from "react-redux";
-import { AppState, taskActions } from "../../../Redux/store";
-import { useDispatch } from "react-redux";
+import { AppState } from "../../../Redux/store";
 import { createSelector } from "reselect";
+import { useEffect } from "react";
+import { taskService } from "../../../Services/TaskService";
 
-const selectIncompletedTasks = createSelector(
+const selectIncompleteTasks = createSelector(
   (state: AppState) => state.tasks,
   (tasks) => (tasks ? tasks.filter((task) => task.completed === "false") : [])
 );
 
 export function TaskList(): JSX.Element {
-  const incompletedTasks = useSelector(selectIncompletedTasks);
+  const incompleteTasks = useSelector(selectIncompleteTasks);
 
   const userId = useSelector<AppState, number>((state) => state.user.id);
 
+  useEffect(() => {
+    taskService.getAllTask(userId);
+  }, [userId]);
+
   return (
     <div>
-      {incompletedTasks.length > 0 ? (
-        incompletedTasks.map((task) => <TaskCard key={task.id} task={task} />)
+      {incompleteTasks.length > 0 ? (
+        incompleteTasks.map((task) => <TaskCard key={task.id} task={task} />)
       ) : (
-        <div>There is no Incompleted tasks.</div>
+        <div>There is no incompleteTasks tasks.</div>
       )}
     </div>
   );

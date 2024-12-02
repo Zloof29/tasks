@@ -27,7 +27,7 @@ export function AddTask(): JSX.Element {
     try {
       await taskService.addTask(task, userId);
       notify.success("Task has been added.");
-      navigate("/tasks");
+      navigate("/IncompleteTasks");
     } catch (error) {
       notify.error(errorHandler.getError(error));
     }

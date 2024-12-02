@@ -48,7 +48,7 @@ export function EditTask(): JSX.Element {
     try {
       await taskService.updateTask(+taskId, task);
       notify.success("Task has been edited.");
-      navigate("/tasks");
+      navigate("/IncompleteTasks");
     } catch (error: any) {
       console.log(+taskId);
 
@@ -90,6 +90,7 @@ export function EditTask(): JSX.Element {
               value={age}
               label="Is completed?"
               {...register("completed")}
+              required
               onChange={handleChange}
             >
               <MenuItem value={"true"}>True</MenuItem>
