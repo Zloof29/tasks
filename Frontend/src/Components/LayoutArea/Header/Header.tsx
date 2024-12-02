@@ -1,11 +1,11 @@
 import { UserMenu } from "../../UserArea/UserMenu/UserMenu";
-import "./Header.css";
+import css from "./Header.module.css";
 
 export function Header(): JSX.Element {
     return (
-        <div className="Header">
+        <div className={css.Header}>
             <UserMenu />
-			<h1>Task manager</h1>
+			<h1 className={css.Title}>Task manager</h1>
         </div>
     );
 }
