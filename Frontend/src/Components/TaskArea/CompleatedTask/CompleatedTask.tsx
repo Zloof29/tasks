@@ -1,9 +1,6 @@
 import { useSelector } from "react-redux";
 import css from "./CompleatedTask.module.css";
 import { AppState } from "../../../Redux/store";
-import { TaskModel } from "../../../Models/TaskModel";
-import { useEffect } from "react";
-import { taskService } from "../../../Services/TaskService";
 import { TaskCard } from "../TaskCard/TaskCard";
 import { createSelector } from "reselect";
 
