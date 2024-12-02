@@ -4,4 +4,5 @@ export class TaskModel {
     public description: string;
     public created: string;
     public userId: number;
+    public completed: string;
 }

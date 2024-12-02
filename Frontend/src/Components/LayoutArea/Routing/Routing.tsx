@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { AppState } from "../../../Redux/store";
 import { useEffect } from "react";
 import { taskService } from "../../../Services/TaskService";
+import { CompleatedTask } from "../../TaskArea/CompleatedTask/CompleatedTask";
 
 export function Routing(): JSX.Element {
 
@@ -28,10 +29,10 @@ export function Routing(): JSX.Element {
 			<Routes>
 
                 <Route path="/" element={<Navigate to="/home" />} />
-                <Route path="/home" element={<Home />} />
                 <Route path="/tasks" element={<TaskList />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/completedTasks" element={<CompleatedTask />} />
                 <Route path="/new-task" element={<AddTask />} />
-                <Route path="/about" element={<About />} />
                 <Route path="/editTask/:taskId" element={<EditTask />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
