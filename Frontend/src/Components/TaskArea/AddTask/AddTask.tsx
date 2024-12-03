@@ -35,7 +35,7 @@ export function AddTask(): JSX.Element {
 
   function handleCancelButton() {
     try {
-      navigate("/tasks");
+      navigate("/IncompleteTasks");
     } catch (error: any) {
       notify.error(errorHandler.getError(error));
     }
@@ -64,8 +64,12 @@ export function AddTask(): JSX.Element {
 
         <Box display={"flex"} justifyContent={"center"}>
           <Stack direction="row" spacing={2} justifyContent={"center"}>
-            <Button type="submit">ADD</Button>
-            <Button onClick={handleCancelButton}>Cancel</Button>
+            <Button type="submit" color="success">
+              ADD
+            </Button>
+            <Button onClick={handleCancelButton} color="error">
+              Cancel
+            </Button>
           </Stack>
         </Box>
       </form>

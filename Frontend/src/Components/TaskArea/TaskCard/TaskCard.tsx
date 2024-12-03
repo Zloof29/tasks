@@ -35,16 +35,19 @@ export function TaskCard(props: TaskCardProps): JSX.Element {
 
   const navigate = useNavigate();
 
-  const handleDeleteButton = async () => {
-    try {
+const handleDeleteButton = async () => {
+  try {
+    const confirmed = window.confirm("Are you sure?");
+    if (confirmed) {
       await taskService.deleteTasks(taskId);
       notify.success("Task has been deleted.");
       const action = taskActions.deleteTasks(taskId);
       store.dispatch(action);
-    } catch (error: any) {
-      notify.error(errorHandler.getError(error));
     }
-  };
+  } catch (error: any) {
+    notify.error(errorHandler.getError(error));
+  }
+};
 
   const handleEditButton = async () => {
     try {
