@@ -66,7 +66,9 @@ export function EditTask(): JSX.Element {
 
   function handleCancelButton() {
     try {
-      navigate("/tasks");
+      task.completed === "true"
+        ? navigate("/CompletedTasks")
+        : navigate("/IncompleteTasks");
     } catch (error: any) {
       notify.error(errorHandler.getError(error));
     }
@@ -79,7 +81,7 @@ export function EditTask(): JSX.Element {
         <input type="text" {...register("title")} required />
 
         <label>Description: </label>
-        <input type="text" {...register("description")} required />
+        <textarea {...register("description")} rows={10} cols={38} required />
 
         <Box sx={{ minWidth: 120 }}>
           <FormControl fullWidth>
