@@ -55,6 +55,8 @@ export function AddTask(): JSX.Element {
         <TextField
           className={css.TextField}
           required
+          multiline
+          rows={5}
           id="outlined-required"
           label="Description"
           {...register("description")}
