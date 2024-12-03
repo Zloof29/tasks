@@ -4,6 +4,7 @@ export class TaskModel {
     public description: string;
     public created: Date;
     public userId: number;
+    public completed: string;
 
     constructor(task: TaskModel) {
         this.id = task.id;
@@ -11,5 +12,6 @@ export class TaskModel {
         this.description = task.description;
         this.created = task.created;
         this.userId = task.userId;
+        this.completed = task.completed;
     }
 }

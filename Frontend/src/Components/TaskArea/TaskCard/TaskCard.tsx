@@ -65,6 +65,17 @@ export function TaskCard(props: TaskCardProps): JSX.Element {
     }
   };
 
+  const handleToIncompleteTask = async () => {
+    try {
+      const incomplete = "false";
+      taskService.updateTaskIncomplete(taskId, incomplete);
+      notify.success("Task has been Incomplete.");
+      navigate("/IncompleteTasks");
+    } catch (error: any) {
+      notify.error(errorHandler.getError(error));
+    }
+  };
+
   return (
     <div className={css.Container}>
       <Card
@@ -154,7 +165,7 @@ export function TaskCard(props: TaskCardProps): JSX.Element {
                 {props.task.completed === "true" ? (
                   <Button
                     variant="text"
-                    onClick={handleEditButton}
+                    onClick={handleToIncompleteTask}
                     color="error"
                   >
                     InComplete

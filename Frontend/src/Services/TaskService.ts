@@ -69,6 +69,25 @@ class TaskService {
     return updatedCompleted;
   }
 
+  public async updateTaskIncomplete(
+    id: number,
+    incomplete: string
+  ): Promise<TaskModel> {
+    const completed = incomplete === "false" ? "false" : "true";
+
+    const response = await axios.put(
+      `${appConfig.UpdateTaskToIncomplete}${id}/incomplete`,
+      { incomplete, completed }
+    );
+
+    const updatedIncomplete = response.data;
+
+    const action = taskActions.updateTasks(updatedIncomplete);
+    store.dispatch(action);
+
+    return updatedIncomplete;
+  }
+
   public async deleteTasks(id: number): Promise<void> {
     await axios.delete<TaskModel>(appConfig.deleteTask + id);
 
