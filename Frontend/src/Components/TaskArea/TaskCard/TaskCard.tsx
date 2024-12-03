@@ -59,6 +59,7 @@ export function TaskCard(props: TaskCardProps): JSX.Element {
       const completed = "true";
       taskService.updateTaskCompleted(taskId, completed);
       notify.success("Task has been completed.");
+      navigate("/CompletedTasks");
     } catch (error: any) {
       notify.error(errorHandler.getError(error));
     }
@@ -105,62 +106,74 @@ export function TaskCard(props: TaskCardProps): JSX.Element {
             sx={{
               color: "text.secondary",
               overflowX: "hidden",
-              height: props.task.description.length > 80 ? "60px" : "20px",
-              textOverflow:
-                props.task.description.length > 80 ? "initial" : "ellipsis",
-              overflowY:
-                props.task.description.length > 80 ? "scroll" : "hidden",
-              marginBottom: props.task.description.length < 80 ? "40px" : "0px",
-              whiteSpace:
-                props.task.description.length > 80 ? "normal" : "nowrap",
+              overflowY: "hidden",
+              height: showFullDescription
+                ? "auto"
+                : props.task.description.length > 80
+                ? "60px"
+                : "20px",
+              textOverflow: showFullDescription
+                ? "initial"
+                : props.task.description.length > 80
+                ? "initial"
+                : "ellipsis",
+              marginBottom: props.task.description.length < 80 ? "75px" : "0px",
+              whiteSpace: showFullDescription
+                ? "normal"
+                : props.task.description.length > 80
+                ? "normal"
+                : "nowrap",
             }}
           >
             {props.task.description}
           </Typography>
-          {/* {props.task.description.length > 80 && (
+          {props.task.description.length > 80 && (
             <Button variant="text" onClick={handleToggleDescription}>
               {showFullDescription ? "Read less" : "Read more"}
             </Button>
-          )} */}
+          )}
         </Box>
-        {/* <Divider />
-        <Typography
-          variant="body2"
-          sx={{ color: props.task.completed === "true" ? "green" : "red" }}
-        >
-          {props.task.completed === "true" ? "Completed" : "Incomplete"}
-        </Typography> */}
-        <Divider />
-        <Box sx={{ p: 2 }}>
-          <Typography gutterBottom variant="body2">
-            Select action:
-          </Typography>
-          <Stack direction="row" spacing={2} justifyContent={"center"}>
-            <Button
-              variant="text"
-              sx={{ color: "red" }}
-              onClick={handleDeleteButton}
-            >
-              Delete
-            </Button>
-            <Button variant="text" onClick={handleEditButton}>
-              Edit
-            </Button>
-            {props.task.completed === "true" ? (
-              <Button variant="text" onClick={handleEditButton} color="error">
-                InComplete
-              </Button>
-            ) : (
-              <Button
-                variant="text"
-                onClick={handleToCompleteTask}
-                color="success"
-              >
-                Complete
-              </Button>
-            )}
-          </Stack>
-        </Box>
+        {!showFullDescription ? (
+          <>
+            <Divider />
+            <Box sx={{ p: 2 }}>
+              <Typography gutterBottom variant="body2">
+                Select action:
+              </Typography>
+              <Stack direction="row" spacing={2} justifyContent={"center"}>
+                <Button
+                  variant="text"
+                  sx={{ color: "red" }}
+                  onClick={handleDeleteButton}
+                >
+                  Delete
+                </Button>
+                <Button variant="text" onClick={handleEditButton}>
+                  Edit
+                </Button>
+                {props.task.completed === "true" ? (
+                  <Button
+                    variant="text"
+                    onClick={handleEditButton}
+                    color="error"
+                  >
+                    InComplete
+                  </Button>
+                ) : (
+                  <Button
+                    variant="text"
+                    onClick={handleToCompleteTask}
+                    color="success"
+                  >
+                    Complete
+                  </Button>
+                )}
+              </Stack>
+            </Box>
+          </>
+        ) : (
+          <></>
+        )}
       </Card>
     </div>
   );
