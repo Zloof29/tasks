@@ -5,6 +5,7 @@ import { TaskCard } from "../TaskCard/TaskCard";
 import { createSelector } from "reselect";
 import { useEffect } from "react";
 import { taskService } from "../../../Services/TaskService";
+import { useNavigate } from "react-router-dom";
 
 // Memoized selector
 const selectCompletedTasks = createSelector(
@@ -15,11 +16,19 @@ const selectCompletedTasks = createSelector(
 export function CompletedTask(): JSX.Element {
   const completedTasks = useSelector(selectCompletedTasks);
 
-  const userId = useSelector<AppState, number>((state) => state.user.id);
+  const navigate = useNavigate();
+
+  const userId = useSelector<AppState, number | null>(
+    (state) => state.user?.id ?? null
+  );
 
   useEffect(() => {
-    taskService.getAllTask(userId);
-  }, [userId]);
+    if (userId === null) {
+      navigate("/page404");
+    } else {
+      taskService.getAllTask(userId);
+    }
+  }, [userId, navigate]);
 
   return (
     <div className={css.CompletedTask}>
