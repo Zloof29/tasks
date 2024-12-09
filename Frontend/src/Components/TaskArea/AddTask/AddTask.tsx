@@ -22,7 +22,7 @@ export function AddTask(): JSX.Element {
 
   useEffect(() => {
     if (userId === null) {
-      navigate("/page404");
+      navigate("/logIn");
     } else {
       setValue("created", new Date().toISOString());
       setValue("completed", "false");
