@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import css from "./CompletedTask.module.css";
+import css from "./CompletedTasks.module.css";
 import { AppState } from "../../../Redux/store";
 import { TaskCard } from "../TaskCard/TaskCard";
 import { createSelector } from "reselect";
@@ -13,7 +13,7 @@ const selectCompletedTasks = createSelector(
   (tasks) => (tasks ? tasks.filter((task) => task.completed === "true") : [])
 );
 
-export function CompletedTask(): JSX.Element {
+export function CompletedTasks(): JSX.Element {
   const completedTasks = useSelector(selectCompletedTasks);
 
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ export function CompletedTask(): JSX.Element {
 
   useEffect(() => {
     if (userId === null) {
-      navigate("/page404");
+      navigate("/logIn");
     } else {
       taskService.getAllTask(userId);
     }

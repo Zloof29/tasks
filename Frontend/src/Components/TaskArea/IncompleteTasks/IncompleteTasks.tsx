@@ -11,7 +11,7 @@ const selectIncompleteTasks = createSelector(
   (tasks) => (tasks ? tasks.filter((task) => task.completed === "false") : [])
 );
 
-export function TaskList(): JSX.Element {
+export function IncompleteTasks(): JSX.Element {
   const incompleteTasks = useSelector(selectIncompleteTasks);
 
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ export function TaskList(): JSX.Element {
 
   useEffect(() => {
     if (userId === null) {
-      navigate("/page404");
+      navigate("/logIn");
     } else {
       taskService.getAllTask(userId);
     }

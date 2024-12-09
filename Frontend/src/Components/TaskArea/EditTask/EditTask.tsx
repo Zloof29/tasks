@@ -11,7 +11,6 @@ import { AppState } from "../../../Redux/store";
 import {
   Box,
   Button,
-  ButtonGroup,
   FormControl,
   InputLabel,
   MenuItem,
@@ -50,8 +49,6 @@ export function EditTask(): JSX.Element {
       notify.success("Task has been edited.");
       navigate("/IncompleteTasks");
     } catch (error: any) {
-      console.log(+taskId);
-
       notify.error(errorHandler.getError(error));
     }
   }
