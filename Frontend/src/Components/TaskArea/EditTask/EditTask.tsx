@@ -36,12 +36,18 @@ export function EditTask(): JSX.Element {
     state.tasks ? state.tasks.find((t) => t.id === +taskId) : undefined
   );
 
+  const userId = useSelector<AppState, number | null>(
+    (state) => state.user?.id ?? null
+  );
+
   useEffect(() => {
-    if (task) {
+    if (userId === null) {
+      navigate("/logIn");
+    } else {
       setValue("title", task.title);
       setValue("description", task.description);
     }
-  }, [task, setValue]);
+  }, [task, setValue, userId]);
 
   async function send(task: TaskModel) {
     try {
@@ -110,7 +116,11 @@ export function EditTask(): JSX.Element {
             >
               Clear
             </Button>
-            <Button className={css.Button} type="button" onClick={handleCancelButton}>
+            <Button
+              className={css.Button}
+              type="button"
+              onClick={handleCancelButton}
+            >
               cancel
             </Button>
           </Stack>
