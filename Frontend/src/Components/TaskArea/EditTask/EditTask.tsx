@@ -100,11 +100,17 @@ export function EditTask(): JSX.Element {
 
         <Box display={"flex"} justifyContent={"center"}>
           <Stack direction="row" spacing={2} justifyContent={"center"}>
-            <Button type="submit">Update</Button>
-            <Button type="button" onClick={handleResetButton}>
+            <Button className={css.Button} type="submit">
+              Update
+            </Button>
+            <Button
+              className={css.Button}
+              type="button"
+              onClick={handleResetButton}
+            >
               Clear
             </Button>
-            <Button type="button" onClick={handleCancelButton}>
+            <Button className={css.Button} type="button" onClick={handleCancelButton}>
               cancel
             </Button>
           </Stack>

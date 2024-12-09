@@ -1,10 +1,11 @@
 import { useSelector } from "react-redux";
-import "./UserMenu.css";
+import css2 from "./UserMenu.module.css";
 import { AppState } from "../../../Redux/store";
 import { UserModel } from "../../../Models/UserModel";
 import { NavLink } from "react-router-dom";
 import { userService } from "../../../Services/UserService";
 import { notify } from "../../../Utils/notify";
+import { css } from "@emotion/react";
 
 export function UserMenu(): JSX.Element {
   const user = useSelector<AppState, UserModel>((store) => store.user);
@@ -15,13 +16,17 @@ export function UserMenu(): JSX.Element {
   }
 
   return (
-    <div className="UserMenu">
+    <div className={css2.UserMenu}>
       {!user && (
         <>
           <span>Hello Guest | </span>
-          <NavLink to="/register">Register</NavLink>
+          <NavLink className={css2.Register} to="/register">
+            Register
+          </NavLink>
           <span> | </span>
-          <NavLink to="/login">Login</NavLink>
+          <NavLink className={css2.LogIn} to="/login">
+            Login
+          </NavLink>
         </>
       )}
 
@@ -30,7 +35,7 @@ export function UserMenu(): JSX.Element {
           <span>
             Hello {user.firstName} {user.lastName} |{" "}
           </span>
-          <NavLink to="/logIn" onClick={logout}>
+          <NavLink className={css2.LogOut} to="/logIn" onClick={logout}>
             Logout
           </NavLink>
         </>

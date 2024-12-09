@@ -5,6 +5,7 @@ import { createSelector } from "reselect";
 import { useEffect } from "react";
 import { taskService } from "../../../Services/TaskService";
 import { useNavigate } from "react-router-dom";
+import css from "../IncompleteTasks/IncompleteTasks.module.css";
 
 const selectIncompleteTasks = createSelector(
   (state: AppState) => state.tasks,
@@ -29,7 +30,7 @@ export function IncompleteTasks(): JSX.Element {
   }, [userId, navigate]);
 
   return (
-    <div>
+    <div className={css.Text}>
       {incompleteTasks.length > 0 ? (
         incompleteTasks.map((task) => <TaskCard key={task.id} task={task} />)
       ) : (

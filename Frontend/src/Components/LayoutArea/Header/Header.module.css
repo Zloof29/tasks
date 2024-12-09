@@ -1,14 +1,35 @@
 .Header {
   height: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   font-size: 3vh;
+  background-color: #2c3e50;
 }
 
 .Title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  font-size: 40px;
   padding-top: 10px;
+  padding-bottom: 20px;
+  margin-left: 10px;
+  color: #2ecc71;
+}
+
+.User {
+  font-size: 20px;
+}
+
+@media (max-width: 500px) {
+  .Header {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2vh;
+  }
+
+  .Title {
+    padding-top: 35px;
+    font-size: 25px;
+  }
 }
