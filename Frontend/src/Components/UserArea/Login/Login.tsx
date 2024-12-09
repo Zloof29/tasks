@@ -7,36 +7,31 @@ import { errorHandler } from "../../../Utils/ErrorHandler";
 import { notify } from "../../../Utils/notify";
 
 export function Login(): JSX.Element {
+  const { register, handleSubmit } = useForm<CredentialsModel>();
+  const navigate = useNavigate();
 
-    const { register, handleSubmit } = useForm<CredentialsModel>();
-    const navigate = useNavigate();
-
-    async function send(credentials: CredentialsModel) {
-        try {
-            await userService.login(credentials);
-            notify.success("Welcome back!");
-            navigate("/home");
-        }
-        catch (err: any) {
-            const errorMessage = errorHandler.getError(err);
-            notify.error(errorMessage);
-        }
+  async function send(credentials: CredentialsModel) {
+    try {
+      await userService.login(credentials);
+      notify.success("Welcome back!");
+      navigate("/IncompleteTasks");
+    } catch (err: any) {
+      const errorMessage = errorHandler.getError(err);
+      notify.error(errorMessage);
     }
+  }
 
-    return (
-        <div className="Login">
+  return (
+    <div className="Login">
+      <form onSubmit={handleSubmit(send)}>
+        <label>Email: </label>
+        <input type="email" {...register("email")} />
 
-            <form onSubmit={handleSubmit(send)}>
+        <label>Password: </label>
+        <input type="password" {...register("password")} />
 
-                <label>Email: </label>
-                <input type="email" {...register("email")} />
-
-                <label>Password: </label>
-                <input type="password" {...register("password")} />
-
-                <button>Login</button>
-
-            </form>
-        </div>
-    );
+        <button>Login</button>
+      </form>
+    </div>
+  );
 }

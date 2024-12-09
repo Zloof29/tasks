@@ -16,12 +16,18 @@ export function AddTask(): JSX.Element {
 
   const navigate = useNavigate();
 
-  const userId = useSelector<AppState, number>((state) => state.user.id);
+  const userId = useSelector<AppState, number | null>(
+    (state) => state.user?.id ?? null
+  );
 
   useEffect(() => {
-    setValue("created", new Date().toISOString());
-    setValue("completed", "false");
-  }, [setValue]);
+    if (userId === null) {
+      navigate("/page404");
+    } else {
+      setValue("created", new Date().toISOString());
+      setValue("completed", "false");
+    }
+  }, [setValue, navigate]);
 
   async function send(task: TaskModel) {
     try {

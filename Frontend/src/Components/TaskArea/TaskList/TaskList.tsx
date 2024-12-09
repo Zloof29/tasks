@@ -4,6 +4,7 @@ import { AppState } from "../../../Redux/store";
 import { createSelector } from "reselect";
 import { useEffect } from "react";
 import { taskService } from "../../../Services/TaskService";
+import { useNavigate } from "react-router-dom";
 
 const selectIncompleteTasks = createSelector(
   (state: AppState) => state.tasks,
@@ -13,18 +14,26 @@ const selectIncompleteTasks = createSelector(
 export function TaskList(): JSX.Element {
   const incompleteTasks = useSelector(selectIncompleteTasks);
 
-  const userId = useSelector<AppState, number>((state) => state.user.id);
+  const navigate = useNavigate();
+
+  const userId = useSelector<AppState, number | null>(
+    (state) => state.user?.id ?? null
+  );
 
   useEffect(() => {
-    taskService.getAllTask(userId);
-  }, [userId]);
+    if (userId === null) {
+      navigate("/page404");
+    } else {
+      taskService.getAllTask(userId);
+    }
+  }, [userId, navigate]);
 
   return (
     <div>
       {incompleteTasks.length > 0 ? (
         incompleteTasks.map((task) => <TaskCard key={task.id} task={task} />)
       ) : (
-        <div>There is no incompleteTasks tasks.</div>
+        <div>There is no incomplete tasks.</div>
       )}
     </div>
   );
