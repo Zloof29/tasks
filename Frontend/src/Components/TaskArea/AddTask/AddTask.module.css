@@ -1,24 +1,25 @@
 .form {
-    width: 300px;
-    margin: 10px auto;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 10px 10px 10px gray;
-    border: 1px solid black;
-    text-align: left;
+  width: 300px;
+  margin: 10px auto;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 10px 10px 10px gray;
+  border: 1px solid black;
+  text-align: left;
 }
 
 .Button {
-    background-color: transparent;
-    border: 1px solid gray;
+  background-color: transparent;
+  border: 1px solid gray;
 }
 
 .Button:active {
-    font-size: medium;
+  font-size: medium;
 }
 
-.form > .TextField, .form > button {
-    width: 100%;
-    box-sizing: border-box;
-    margin-bottom: 20px;
+.form > .TextField,
+.form > button {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 20px;
 }

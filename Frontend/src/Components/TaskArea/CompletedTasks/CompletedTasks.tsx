@@ -31,7 +31,7 @@ export function CompletedTasks(): JSX.Element {
   }, [userId, navigate]);
 
   return (
-    <div className={css.CompletedTask}>
+    <div className={css.Text}>
       {completedTasks.length > 0 ? (
         completedTasks.map((task) => <TaskCard key={task.id} task={task} />)
       ) : (

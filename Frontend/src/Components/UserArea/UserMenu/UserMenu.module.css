@@ -1,0 +1,19 @@
+.UserMenu {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+
+.LogOut,
+.LogIn,
+.Register {
+  color: #e74c3c;
+}
+
+@media (max-width: 500px) {
+  .UserMenu {
+    position: fixed;
+    top: 20px;
+    right: 100px;
+  }
+}

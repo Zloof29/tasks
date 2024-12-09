@@ -14,6 +14,7 @@ import { notify } from "../../../Utils/notify";
 import { errorHandler } from "../../../Utils/ErrorHandler";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { colors } from "@mui/material";
 
 type TaskCardProps = {
   task: TaskModel;
@@ -35,19 +36,19 @@ export function TaskCard(props: TaskCardProps): JSX.Element {
 
   const navigate = useNavigate();
 
-const handleDeleteButton = async () => {
-  try {
-    const confirmed = window.confirm("Are you sure?");
-    if (confirmed) {
-      await taskService.deleteTasks(taskId);
-      notify.success("Task has been deleted.");
-      const action = taskActions.deleteTasks(taskId);
-      store.dispatch(action);
+  const handleDeleteButton = async () => {
+    try {
+      const confirmed = window.confirm("Are you sure?");
+      if (confirmed) {
+        await taskService.deleteTasks(taskId);
+        notify.success("Task has been deleted.");
+        const action = taskActions.deleteTasks(taskId);
+        store.dispatch(action);
+      }
+    } catch (error: any) {
+      notify.error(errorHandler.getError(error));
     }
-  } catch (error: any) {
-    notify.error(errorHandler.getError(error));
-  }
-};
+  };
 
   const handleEditButton = async () => {
     try {
@@ -102,7 +103,12 @@ const handleDeleteButton = async () => {
               gutterBottom
               variant="h6"
               component="div"
-              sx={{ textAlign: "center", flexGrow: 1, marginRight: 2 }}
+              sx={{
+                textAlign: "center",
+                flexGrow: 1,
+                marginRight: 2,
+                color: "#2c3e50",
+              }}
             >
               {props.task.title}
             </Typography>
@@ -110,7 +116,7 @@ const handleDeleteButton = async () => {
               gutterBottom
               variant="body2"
               component="div"
-              sx={{ textAlign: "right" }}
+              sx={{ textAlign: "right", color: "#2c3e50" }}
             >
               {formatedDate}
             </Typography>
@@ -118,7 +124,7 @@ const handleDeleteButton = async () => {
           <Typography
             variant="body2"
             sx={{
-              color: "text.secondary",
+              color: "#2c3e50",
               overflowX: "hidden",
               overflowY: "hidden",
               height: showFullDescription
@@ -142,7 +148,11 @@ const handleDeleteButton = async () => {
             {props.task.description}
           </Typography>
           {props.task.description.length > 80 && (
-            <Button variant="text" onClick={handleToggleDescription}>
+            <Button
+              variant="text"
+              onClick={handleToggleDescription}
+              sx={{ color: "#3498db" }}
+            >
               {showFullDescription ? "Read less" : "Read more"}
             </Button>
           )}
@@ -151,18 +161,26 @@ const handleDeleteButton = async () => {
           <>
             <Divider />
             <Box sx={{ p: 2 }}>
-              <Typography gutterBottom variant="body2">
+              <Typography
+                gutterBottom
+                variant="body2"
+                sx={{ color: "#2c3e50" }}
+              >
                 Select action:
               </Typography>
               <Stack direction="row" spacing={2} justifyContent={"center"}>
                 <Button
                   variant="text"
-                  sx={{ color: "red" }}
+                  color="error"
                   onClick={handleDeleteButton}
                 >
                   Delete
                 </Button>
-                <Button variant="text" onClick={handleEditButton}>
+                <Button
+                  variant="text"
+                  onClick={handleEditButton}
+                  sx={{ color: "#3498db" }}
+                >
                   Edit
                 </Button>
                 {props.task.completed === "true" ? (
