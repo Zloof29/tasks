@@ -8,71 +8,73 @@ import { UnauthorizedError } from "../3-models/client-error";
 
 // Deals with users:
 class UserService {
+  // Register new user:
+  public async register(user: UserModel) {
+    // Validation...
+    // user.validate();
 
-    // Register new user: 
-    public async register(user: UserModel) {
+    // SQL:
+    const sql = "insert into users values(default,?,?,?,?,?)";
 
-        // Validation...
-        // user.validate();
+    // Set role as regular user and not something else:
+    user.roleId = Role.User;
 
-        // SQL:
-        const sql = "insert into users values(default,?,?,?,?,?)";
+    // Hash password:
+    user.password = cyber.hash(user.password);
 
-        // Set role as regular user and not something else: 
-        user.roleId = Role.User;
+    // Values:
+    const values = [
+      user.firstName,
+      user.lastName,
+      user.email,
+      user.password,
+      user.roleId,
+    ];
 
-        // Hash password: 
-        user.password = cyber.hash(user.password);
+    // Execute:
+    const info: OkPacketParams = await dal.execute(sql, values);
 
-        // Values: 
-        const values = [user.firstName, user.lastName, user.email, user.password, user.roleId];
+    // Set back id:
+    user.id = info.insertId;
 
-        // Execute: 
-        const info: OkPacketParams = await dal.execute(sql, values);
+    // Create JWT (Json Web Token):
+    const token = cyber.generateNewToken(user);
 
-        // Set back id: 
-        user.id = info.insertId;
+    // Return:
+    return token;
+  }
 
-        // Create JWT (Json Web Token): 
-        const token = cyber.generateNewToken(user);
+  public async login(credentials: CredentialsModel) {
+    // Validation...
+    // user.validate();
 
-        // Return:
-        return token;
-    }
+    // SQL:
+    const sql = "select * from users where email = ? and password = ?";
 
-    public async login(credentials: CredentialsModel) {
+    // Hash password:
+    credentials.password = cyber.hash(credentials.password);
 
-        // Validation...
-        // user.validate();
+    // const sql = `select * from users where email = '${credentials.email}' and password = '${credentials.password}'`;
 
-        // SQL:
-        // const sql = "select * from users where email = ? and password = ?";
+    // Values:
+    const values = [credentials.email, credentials.password];
 
-        // Hash password: 
-        credentials.password = cyber.hash(credentials.password);
+    // Execute:
+    const users = await dal.execute(sql, values);
+    // const users = await dal.execute(sql);
 
-        const sql = `select * from users where email = '${credentials.email}' and password = '${credentials.password}'`;
+    // Extract user:
+    const user = users[0];
 
-        // Values: 
-        // const values = [credentials.email, credentials.password];
+    // If no user:
+    if (!user) throw new UnauthorizedError("Incorrect email or password.");
 
-        // Execute: 
-        // const users = await dal.execute(sql, values);
-        const users = await dal.execute(sql);
+    // Create JWT (Json Web Token):
+    const token = cyber.generateNewToken(user);
 
-        // Extract user: 
-        const user = users[0];
-
-        // If no user: 
-        if (!user) throw new UnauthorizedError("Incorrect email or password.");
-
-        // Create JWT (Json Web Token): 
-        const token = cyber.generateNewToken(user);
-
-        // Return:
-        return token;
-    }
-
+    // Return:
+    return token;
+  }
 }
 
 export const userService = new UserService();
