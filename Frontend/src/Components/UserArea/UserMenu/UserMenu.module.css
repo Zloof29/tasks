@@ -2,12 +2,22 @@
   position: fixed;
   top: 20px;
   right: 20px;
+  background-color: #1F1F1F; /* Dark background color */
+  color: #E0E0E0; /* Light text color */
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .LogOut,
 .LogIn,
 .Register {
-  color: #e74c3c;
+  color: #BB86FC; /* Accent color for links */
+}
+
+.LogOut:hover,
+.LogIn:hover,
+.Register:hover {
+  color: #FFFFFF; /* Hover color for links */
 }
 
 @media (max-width: 500px) {

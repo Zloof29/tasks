@@ -2,11 +2,12 @@
 }
 
 .active {
-  color: black;
-  font-weight: bold;
+  color: #ffffff; /* Accent color for active link */
+  border-color: #292929; /* Border color for active link */
+  font-weight: bolder;
 }
 
 a {
   text-decoration: none;
-  color: #3498db;
+  color: #ffffff;
 }
