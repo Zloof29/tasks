@@ -1,7 +1,7 @@
 .Header {
   height: 100%;
   display: flex;
-  justify-content: left;
+  justify-content: space-between;
   align-items: center;
   font-size: 3vh;
   background-color: #121212;
@@ -17,19 +17,22 @@
 
 .User {
   font-size: 20px;
+  margin-left: auto;
 }
 
 @media (max-width: 500px) {
   .Header {
-    height: 100%;
-    display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    font-size: 2vh;
   }
 
   .Title {
-    padding-top: 35px;
-    font-size: 25px;
+    font-size: 30px;
+    padding-top: 65px;
+  }
+
+  .User {
+    font-size: 18px;
+    margin-left: 0;
   }
 }
