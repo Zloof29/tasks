@@ -51,21 +51,67 @@ export function AddTask(): JSX.Element {
     <div>
       <form onSubmit={handleSubmit(send)} className={css.form}>
         <TextField
-          className={css.TextField}
           required
           id="outlined-required"
           label="Title"
           {...register("title")}
+          InputLabelProps={{
+            style: { color: "#E0E0E0" }, // Label color
+          }}
+          sx={{
+            width: "100%",
+            paddingBottom: "15px",
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "#E0E0E0", // Border color
+              },
+              "&:hover fieldset": {
+                borderColor: "#BB86FC", // Border color on hover
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "#BB86FC", // Border color on focus
+              },
+              "& input": {
+                color: "#E0E0E0", // Text color
+              },
+            },
+            "& label.Mui-focused": {
+              color: "#BB86FC", // Accent color for focused label
+            },
+          }}
         />
 
         <TextField
-          className={css.TextField}
           required
           multiline
           rows={5}
           id="outlined-required"
           label="Description"
           {...register("description")}
+          InputLabelProps={{
+            style: { color: "#E0E0E0" }, // Label color
+          }}
+          sx={{
+            width: "100%",
+            paddingBottom: "15px",
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "#E0E0E0", // Border color
+              },
+              "&:hover fieldset": {
+                borderColor: "#BB86FC", // Border color on hover
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "#BB86FC", // Border color on focus
+              },
+              "& input, & textarea": {
+                color: "#E0E0E0", // Text color for input and textarea
+              },
+            },
+            "& label.Mui-focused": {
+              color: "#BB86FC", // Accent color for focused label
+            },
+          }}
         />
 
         <input type="hidden" {...register("created")} />

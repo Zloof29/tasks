@@ -89,7 +89,7 @@ export function TaskCard(props: TaskCardProps): JSX.Element {
           height: 250,
           backgroundColor: "transparent",
           m: 1,
-          borderColor: "black",
+          borderColor: "#292929",
           boxShadow: 5,
         }}
       >
@@ -107,7 +107,7 @@ export function TaskCard(props: TaskCardProps): JSX.Element {
                 textAlign: "center",
                 flexGrow: 1,
                 marginRight: 2,
-                color: "#2c3e50",
+                color: "#E0E0E0",
               }}
             >
               {props.task.title}
@@ -116,7 +116,7 @@ export function TaskCard(props: TaskCardProps): JSX.Element {
               gutterBottom
               variant="body2"
               component="div"
-              sx={{ textAlign: "right", color: "#2c3e50" }}
+              sx={{ textAlign: "right", color: "#B0B0B0" }}
             >
               {formatedDate}
             </Typography>
@@ -124,7 +124,7 @@ export function TaskCard(props: TaskCardProps): JSX.Element {
           <Typography
             variant="body2"
             sx={{
-              color: "#2c3e50",
+              color: "#B0B0B0",
               overflowX: "hidden",
               overflowY: "hidden",
               height: showFullDescription
@@ -151,7 +151,7 @@ export function TaskCard(props: TaskCardProps): JSX.Element {
             <Button
               variant="text"
               onClick={handleToggleDescription}
-              sx={{ color: "#3498db" }}
+              sx={{ color: "#FFFFFF" }}
             >
               {showFullDescription ? "Read less" : "Read more"}
             </Button>
@@ -164,7 +164,7 @@ export function TaskCard(props: TaskCardProps): JSX.Element {
               <Typography
                 gutterBottom
                 variant="body2"
-                sx={{ color: "#2c3e50" }}
+                sx={{ color: "#B0B0B0" }}
               >
                 Select action:
               </Typography>
@@ -179,7 +179,7 @@ export function TaskCard(props: TaskCardProps): JSX.Element {
                 <Button
                   variant="text"
                   onClick={handleEditButton}
-                  sx={{ color: "#3498db" }}
+                  sx={{ color: "#FFFFFF" }}
                 >
                   Edit
                 </Button>

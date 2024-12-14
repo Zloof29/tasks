@@ -12,13 +12,27 @@ export function Menu(): JSX.Element {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        color: "#3498db",
+        color: "#FFFFFF",
+        backgroundColor: "#1F1F1F",
         "& > *": {
           m: 1,
         },
       }}
     >
-      <ButtonGroup variant="outlined" aria-label="Basic button group">
+      <ButtonGroup
+        variant="outlined"
+        aria-label="Basic button group"
+        sx={{
+          "& .MuiButtonGroup-grouped": {
+            borderColor: "#292929", // Border color for the button group
+            color: "#FFFFFF", // Text color
+            "&:hover": {
+              borderColor: "#292929", // Border color on hover
+              backgroundColor: "#333333", // Background color on hover
+            },
+          },
+        }}
+      >
         <Button>
           <NavLink
             to="/IncompleteTasks"

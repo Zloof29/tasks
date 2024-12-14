@@ -3,14 +3,13 @@
   margin: 10px auto;
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 10px 10px 10px gray;
-  border: 1px solid black;
+  border: 3px solid 292929;
   text-align: left;
 }
 
 .Button {
   background-color: transparent;
-  border: 1px solid gray;
+  border: 1px solid #292929;
 }
 
 .Button:active {
