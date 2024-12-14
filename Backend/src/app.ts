@@ -2,7 +2,7 @@ import cors from "cors";
 import express from "express";
 import expressFileUpload from "express-fileupload";
 import fs from "fs";
-import helmet from "helmet"; // npm i helmet
+import helmet from "helmet";
 import https from "https";
 import path from "path";
 import { fileSaver } from "uploaded-file-saver";
@@ -18,26 +18,11 @@ fileSaver.config(path.join(__dirname, "1-assets", "images"));
 // Create main server object:
 const server = express();
 
-// server.use(expressRateLimit({
-//     windowMs: 5000,
-//     limit: 3,
-// }));
-
 // Remove non-secured headers from the response:
-server.use(helmet()); // כולנו מחכים לטרוסמן
+server.use(helmet());
 
 // Enable CORS:
-// server.use(cors());
-
-server.use(
-  cors({
-    origin: "https://tasks-delta-tan.vercel.app", // Replace with your Vercel domain
-    credentials: true, // Allow cookies and credentials
-  })
-);
-
-// server.use(cors({ origin: "https://mysite.com" }));
-// server.use(cors({ origin: ["http://mysite.com", "https://mysite.com", "https://some-other-site.com"] }));
+server.use(cors());
 
 // Create the body from json:
 server.use(express.json());
