@@ -2,21 +2,47 @@ import express, { Request, Response, NextFunction } from "express";
 import { taskService } from "../4-services/task-service";
 import { TaskModel } from "../3-models/task-model";
 import { StatusCode } from "../3-models/enums";
+import { securityMiddleware } from "../6-middleware/security-middleware";
 
 class TaskController {
   public readonly router = express.Router();
 
   public constructor() {
-    this.router.get("/tasks/:userId([0-9]+)", this.getAllTasks);
-    this.router.get("/tasks/:id([0-9]+)", this.getOneTask);
-    this.router.post("/tasks/:userId", this.addTask);
-    this.router.put("/tasks/:id([0-9]+)", this.updateTask);
-    this.router.put("/tasks/:id([0-9]+)/complete", this.updateToCompleteTask);
+    this.router.get(
+      "/tasks/:userId([0-9]+)",
+      securityMiddleware.validateLogin,
+      this.getAllTasks
+    );
+    this.router.get(
+      "/tasks/:id([0-9]+)",
+      securityMiddleware.validateLogin,
+      this.getOneTask
+    );
+    this.router.post(
+      "/tasks/:userId",
+      securityMiddleware.validateLogin,
+      this.addTask
+    );
+    this.router.put(
+      "/tasks/:id([0-9]+)",
+      securityMiddleware.validateLogin,
+      this.updateTask
+    );
+    this.router.put(
+      "/tasks/:id([0-9]+)/complete",
+      securityMiddleware.validateLogin,
+      this.updateToCompleteTask
+    );
     this.router.put(
       "/tasks/:id([0-9]+)/incomplete",
+      securityMiddleware.validateLogin,
       this.updateToIncompleteTask
     );
-    this.router.delete("/tasks/:id([0-9]+)", this.deleteTask);
+    this.router.delete(
+      "/tasks/:id([0-9]+)",
+      securityMiddleware.validateLogin,
+      this.deleteTask
+    );
   }
 
   private async getAllTasks(
