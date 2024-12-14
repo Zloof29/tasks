@@ -8,10 +8,19 @@ import { UnauthorizedError } from "../3-models/client-error";
 
 // Deals with users:
 class UserService {
+  private async isEmailExists(email: string): Promise<boolean> {
+    const sql = "select count(*) as count from users where email = ?";
+    const result = await dal.execute(sql, [email]);
+    return result[0].count > 0;
+  }
+
   // Register new user:
   public async register(user: UserModel) {
-    // Validation...
-    // user.validate();
+    const { error } = UserModel.validateRegistration(user);
+    if (error) throw new Error(error.details[0].message);
+
+    const emailExists = await this.isEmailExists(user.email);
+    if (emailExists) throw new Error("Email already exists");
 
     // SQL:
     const sql = "insert into users values(default,?,?,?,?,?)";
@@ -45,8 +54,8 @@ class UserService {
   }
 
   public async login(credentials: CredentialsModel) {
-    // Validation...
-    // user.validate();
+    const { error } = UserModel.validateLogIn(credentials);
+    if (error) throw new Error(error.details[0].message);
 
     // SQL:
     const sql = "select * from users where email = ? and password = ?";
