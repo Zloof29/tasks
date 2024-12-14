@@ -1,6 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import "./Routing.css";
-import { Home } from "../../HomeArea/Home/Home";
 import { Page404 } from "../Page404/Page404";
 import { Register } from "../../UserArea/Register/Register";
 import { Login } from "../../UserArea/Login/Login";

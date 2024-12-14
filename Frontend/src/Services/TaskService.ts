@@ -5,8 +5,6 @@ import { store, taskActions } from "../Redux/store";
 
 class TaskService {
   public async getAllTask(userId: number): Promise<TaskModel[]> {
-    if (store.getState().tasks) return store.getState().tasks;
-
     const response = await axios.get<TaskModel[]>(appConfig.getTasks + userId);
 
     const tasks = response.data;

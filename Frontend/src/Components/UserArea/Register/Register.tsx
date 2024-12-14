@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import "./Register.css";
+import css from "./Register.module.css";
 import { UserModel } from "../../../Models/UserModel";
 import { useNavigate } from "react-router-dom";
 import { userService } from "../../../Services/UserService";
@@ -21,19 +21,19 @@ export function Register(): JSX.Element {
   }
 
   return (
-    <div className="Register">
+    <div className={css.Register}>
       <form onSubmit={handleSubmit(send)}>
         <label>First name: </label>
-        <input type="text" {...register("firstName")} />
+        <input type="text" {...register("firstName")} required />
 
         <label>Last name: </label>
-        <input type="text" {...register("lastName")} />
+        <input type="text" {...register("lastName")} required />
 
         <label>Email: </label>
-        <input type="email" {...register("email")} />
+        <input type="email" {...register("email")} required />
 
         <label>Password: </label>
-        <input type="password" {...register("password")} />
+        <input type="password" {...register("password")} required />
 
         <button>Register</button>
       </form>
